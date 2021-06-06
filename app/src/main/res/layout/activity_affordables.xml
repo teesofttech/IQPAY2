@@ -1,9 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Affordables.AffordablesActivity">
+    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="21dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/placeholder" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="visible">
+
+
+            <Spinner
+                android:id="@+id/material_spinner_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Select Network Provider" />
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimaryDark" />
+
+
+            <!--        <com.tiper.MaterialSpinner-->
+            <!--            android:id="@+id/material_spinner_1"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:hint="Select Network Provider"-->
+            <!--            app:spinnerMode="dropdown" />-->
+
+            <Spinner
+                android:id="@+id/material_spinner_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Select Product" />
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimaryDark" />
+
+            <com.libizo.CustomEditText
+                android:id="@+id/customername"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:hint="Customer Name"
+                android:inputType="text"
+                app:libIZO_setBorderView="true"
+                app:libIZO_setClearIconVisible="true"
+                app:libIZO_setCornerRadius="4dp"
+                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
+                app:libIZO_setStrokeWidth="2dp" />
+
+            <com.libizo.CustomEditText
+                android:id="@+id/phonenumber"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:hint="Customer Phonenumber"
+                android:inputType="text"
+                app:libIZO_setBorderView="true"
+                app:libIZO_setClearIconVisible="true"
+                app:libIZO_setCornerRadius="4dp"
+                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
+                app:libIZO_setStrokeWidth="2dp" />
+            <com.libizo.CustomEditText
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:enabled="false"
+                android:hint="Price per unit"
+                android:inputType="number"
+                app:libIZO_setBorderView="true"
+                app:libIZO_setClearIconVisible="true"
+                app:libIZO_setCornerRadius="4dp"
+                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
+                app:libIZO_setStrokeWidth="2dp" />
+
+
+            <com.libizo.CustomEditText
+                android:id="@+id/deliveryaddress1"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:hint="Delivery Address"
+                android:inputType="text"
+                app:libIZO_setBorderView="true"
+                app:libIZO_setClearIconVisible="true"
+                app:libIZO_setCornerRadius="4dp"
+                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
+                app:libIZO_setStrokeWidth="2dp" />
+
+            <com.libizo.CustomEditText
+                android:id="@+id/state"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:hint="State"
+                android:inputType="text"
+                app:libIZO_setBorderView="true"
+                app:libIZO_setClearIconVisible="true"
+                app:libIZO_setCornerRadius="4dp"
+                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
+                app:libIZO_setStrokeWidth="2dp" />
+
+            <com.libizo.CustomEditText
+                android:id="@+id/lga"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:hint="LGA"
+                android:inputType="text"
+                app:libIZO_setBorderView="true"
+                app:libIZO_setClearIconVisible="true"
+                app:libIZO_setCornerRadius="4dp"
+                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
+                app:libIZO_setStrokeWidth="2dp" />
+
+            <Spinner
+                android:id="@+id/deliveryPoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Preferred Delivery Option" />
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimaryDark" />
+
+            <Spinner
+                android:id="@+id/collectionPoint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Collection Point" />
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorPrimaryDark" />
+
+
+            <!--            <com.libizo.CustomEditText-->
+            <!--                android:id="@+id/phonenumber"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="55dp"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:hint="PhoneNumber"-->
+            <!--                android:inputType="text"-->
+            <!--                app:libIZO_setBorderView="true"-->
+            <!--                app:libIZO_setClearIconVisible="true"-->
+            <!--                app:libIZO_setCornerRadius="4dp"-->
+            <!--                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"-->
+            <!--                app:libIZO_setStrokeWidth="2dp" />-->
+
+            <com.libizo.CustomEditText
+                android:id="@+id/deliveryDate"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:hint="Monday, 01 Aug, 2022"
+                android:inputType="datetime"
+                app:libIZO_setBorderView="true"
+                app:libIZO_setClearIconVisible="true"
+                app:libIZO_setCornerRadius="4dp"
+                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
+                app:libIZO_setStrokeWidth="2dp" />
+
+
+            <Button
+                android:id="@+id/btnContinue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/shape"
+                android:text="Continue"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>
