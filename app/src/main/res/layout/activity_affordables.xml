@@ -4,7 +4,8 @@
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,14 +44,6 @@
                 android:layout_height="2dp"
                 android:background="@color/colorPrimaryDark" />
 
-
-            <!--        <com.tiper.MaterialSpinner-->
-            <!--            android:id="@+id/material_spinner_1"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:hint="Select Network Provider"-->
-            <!--            app:spinnerMode="dropdown" />-->
-
             <Spinner
                 android:id="@+id/material_spinner_type"
                 android:layout_width="match_parent"
@@ -64,138 +57,200 @@
                 android:layout_height="2dp"
                 android:background="@color/colorPrimaryDark" />
 
-            <com.libizo.CustomEditText
-                android:id="@+id/customername"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="20dp"
-                android:hint="Customer Name"
-                android:inputType="text"
-                app:libIZO_setBorderView="true"
-                app:libIZO_setClearIconVisible="true"
-                app:libIZO_setCornerRadius="4dp"
-                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
-                app:libIZO_setStrokeWidth="2dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField"
 
-            <com.libizo.CustomEditText
-                android:id="@+id/phonenumber"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="20dp"
-                android:hint="Customer Phonenumber"
-                android:inputType="text"
-                app:libIZO_setBorderView="true"
-                app:libIZO_setClearIconVisible="true"
-                app:libIZO_setCornerRadius="4dp"
-                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
-                app:libIZO_setStrokeWidth="2dp" />
-            <com.libizo.CustomEditText
-                android:id="@+id/amount"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="20dp"
-                android:enabled="false"
-                android:hint="Price per unit"
-                android:inputType="number"
-                app:libIZO_setBorderView="true"
-                app:libIZO_setClearIconVisible="true"
-                app:libIZO_setCornerRadius="4dp"
-                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
-                app:libIZO_setStrokeWidth="2dp" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
-
-            <com.libizo.CustomEditText
-                android:id="@+id/deliveryaddress1"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="20dp"
-                android:hint="Delivery Address"
-                android:inputType="text"
-                app:libIZO_setBorderView="true"
-                app:libIZO_setClearIconVisible="true"
-                app:libIZO_setCornerRadius="4dp"
-                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
-                app:libIZO_setStrokeWidth="2dp" />
-
-            <com.libizo.CustomEditText
-                android:id="@+id/state"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="20dp"
-                android:hint="State"
-                android:inputType="text"
-                app:libIZO_setBorderView="true"
-                app:libIZO_setClearIconVisible="true"
-                app:libIZO_setCornerRadius="4dp"
-                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
-                app:libIZO_setStrokeWidth="2dp" />
-
-            <com.libizo.CustomEditText
-                android:id="@+id/lga"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="20dp"
-                android:hint="LGA"
-                android:inputType="text"
-                app:libIZO_setBorderView="true"
-                app:libIZO_setClearIconVisible="true"
-                app:libIZO_setCornerRadius="4dp"
-                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
-                app:libIZO_setStrokeWidth="2dp" />
-
-            <Spinner
-                android:id="@+id/deliveryPoint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Preferred Delivery Option" />
+                android:hint="Customer Name">
 
-            <View
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/customername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
 
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/colorPrimaryDark" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
-                android:id="@+id/collectionPoint"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Collection Point" />
+                android:hint="Customer Phonenumber">
 
-            <View
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phonenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/colorPrimaryDark" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Amount">
+
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-            <!--            <com.libizo.CustomEditText-->
-            <!--                android:id="@+id/phonenumber"-->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Delivery Address 1">
+
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/deliveryaddress1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="State">
+
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="LGA">
+
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!-- Inside text input layout add
+                      an auto complete text view
+                        and make its input type to none-->
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Select Preferred Delivery Option" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--            <Spinner-->
+            <!--                android:id="@+id/collectionPoint"-->
             <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="55dp"-->
+            <!--                android:layout_height="wrap_content"-->
             <!--                android:layout_marginTop="20dp"-->
-            <!--                android:hint="PhoneNumber"-->
-            <!--                android:inputType="text"-->
-            <!--                app:libIZO_setBorderView="true"-->
-            <!--                app:libIZO_setClearIconVisible="true"-->
-            <!--                app:libIZO_setCornerRadius="4dp"-->
-            <!--                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"-->
-            <!--                app:libIZO_setStrokeWidth="2dp" />-->
+            <!--                android:hint="Collection Point" />-->
 
-            <com.libizo.CustomEditText
-                android:id="@+id/deliveryDate"
+            <!--            <View-->
+
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="2dp"-->
+            <!--                android:background="@color/colorPrimaryDark" />-->
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Monday, 01 Aug, 2022"
-                android:inputType="datetime"
-                app:libIZO_setBorderView="true"
-                app:libIZO_setClearIconVisible="true"
-                app:libIZO_setCornerRadius="4dp"
-                app:libIZO_setPrefixTextColor="@color/colorPrimaryDark"
-                app:libIZO_setStrokeWidth="2dp" />
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
+                <!-- Inside text input layout add
+                      an auto complete text view
+                        and make its input type to none-->
+                <AutoCompleteTextView
+                    android:id="@+id/collectionPoint"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:inputType="none"
+                    android:text="Select Collection Point" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextField"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Delivery Date (Monday, 01 Aug, 2022)">
+
+                <!--this is the actual edit text which takes the input-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/deliveryDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnContinue"

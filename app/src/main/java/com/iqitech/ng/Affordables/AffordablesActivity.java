@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -30,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.android.material.textfield.TextInputEditText;
 import com.iqitech.ng.Adapter.ServiceVendorAdapter;
 import com.iqitech.ng.Models.ServiceVendor;
 import com.iqitech.ng.Models.UserModel;
@@ -111,8 +113,8 @@ public class AffordablesActivity extends AppCompatActivity {
         arrayList1.add("Berger");
         arrayList1.add("Oshodi");
 
-        com.libizo.CustomEditText amountText = findViewById(R.id.amount);
-
+        TextInputEditText amountText = findViewById(R.id.amount);
+        TextInputEditText deliveryaddress1 = findViewById(R.id.deliveryaddress1);
         alertDialogManager = new AlertDialogManager();
         image = findViewById(R.id.image);
         ACProgressFlower dialog = new ACProgressFlower.Builder(AffordablesActivity.this)
@@ -123,20 +125,21 @@ public class AffordablesActivity extends AppCompatActivity {
 
         model = PrefUtils.getCurrentUser(AffordablesActivity.this);
         materialSpinner = (Spinner) findViewById(R.id.material_spinner_1);
-        deliveryPoint = (Spinner) findViewById(R.id.deliveryPoint);
-        CollectionPoint = (Spinner) findViewById(R.id.collectionPoint);
+        //deliveryPoint = (Spinner) findViewById(R.id.deliveryPoint);
+        //CollectionPoint = (Spinner) findViewById(R.id.collectionPoint);
         materialSpinnerType = (Spinner) findViewById(R.id.material_spinner_type);
         config_url = Constant.GET_CATEGORIES + "8/" + "vendors";
         Log.d("url", config_url);
         cartList = new ArrayList<>();
         vendorname = new ArrayList<>();
         ServiceType = new ArrayList<>();
-        CustomEditText phonenumber = findViewById(R.id.phonenumber);
-        CustomEditText customername = findViewById(R.id.customername);
-        CustomEditText amount = findViewById(R.id.amount);
+        TextInputEditText phonenumber = findViewById(R.id.phonenumber);
+        TextInputEditText customername = findViewById(R.id.customername);
+        TextInputEditText amount = findViewById(R.id.amount);
 
         progressDialog = new ProgressDialog(AffordablesActivity.this);
         fetchRecipes(config_url);
+
         materialSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -157,7 +160,7 @@ public class AffordablesActivity extends AppCompatActivity {
 
                 materialSpinnerType.setPrompt("Select one!");
 
-                if (item1.equals("Affordable Farms")) {
+                if (item1.equals("Ram")) {
                     image.setImageResource(R.mipmap.ramm);
                 }
                 if (item1.equals("Goat")) {
@@ -193,16 +196,6 @@ public class AffordablesActivity extends AppCompatActivity {
                     amount.setText(String.valueOf(user.getAmount()));
                     //Log.d("serviceVendor1", String.valueOf(vendor.getVendorName()));
                 }
-//
-//                Log.d("serviceVendor", String.valueOf(cartList.size()));
-//                for (ServiceVendor vendor : cartList) {
-//                    if (vendor.getVendorName().equals(item2)) {
-//                        //ServiceType.add(vendor.getName());
-//                    }
-//                }
-                // Toast.makeText(getApplicationContext(), vendor.getId(), Toast.LENGTH_LONG).show();
-                // Log.d("ID", String.valueOf(vendor.getId()));
-                // materialSpinnerType.setAdapter(new ArrayAdapter<String>(ElectricityActivity.this, android.R.layout.simple_spinner_dropdown_item, ServiceType));
 
             }
 
@@ -212,27 +205,11 @@ public class AffordablesActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        deliveryPoint.setAdapter(arrayAdapter);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.dropdown_item, arrayList);
+        AutoCompleteTextView dd = findViewById(R.id.autoCompleteTextView);
+        //arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dd.setAdapter(arrayAdapter);
 
-        deliveryPoint.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                delivery = String.valueOf(deliveryPoint.getSelectedItem());
-                if (deliveryPoint.getSelectedItem().equals("Collection Point")) {
-                    delivery = "1";
-                }
-                if (deliveryPoint.getSelectedItem().equals("Courier / Delivery")) {
-                    delivery = "2";
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         materialSpinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -240,28 +217,11 @@ public class AffordablesActivity extends AppCompatActivity {
                 // item2 = user.getId(); //materialSpinnerType.getSelectedItem().toString();
                 VendId = user.getId();
                 item2 = materialSpinnerType.getSelectedItem().toString();
-                Log.d("category", String.valueOf(user.getName()));
-                Log.d("category1", String.valueOf(user.getId()));
-                Log.d("category2", String.valueOf(user.getAmount()));
-
-                Log.d("category3", String.valueOf(item2));
-
                 if (user.getName().equals(item2)) {
                     //  ServiceType.add(vendor.getAmount());
                     amount.setText(String.valueOf(user.getAmount()));
                     //Log.d("serviceVendor1", String.valueOf(vendor.getVendorName()));
                 }
-//
-//                Log.d("serviceVendor", String.valueOf(cartList.size()));
-//                for (ServiceVendor vendor : cartList) {
-//                    if (vendor.getVendorName().equals(item2)) {
-//                        //ServiceType.add(vendor.getName());
-//                    }
-//                }
-                // Toast.makeText(getApplicationContext(), vendor.getId(), Toast.LENGTH_LONG).show();
-                // Log.d("ID", String.valueOf(vendor.getId()));
-                // materialSpinnerType.setAdapter(new ArrayAdapter<String>(ElectricityActivity.this, android.R.layout.simple_spinner_dropdown_item, ServiceType));
-
             }
 
             @Override
@@ -270,31 +230,24 @@ public class AffordablesActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter arrayAdapter1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayList1);
-        arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        CollectionPoint.setAdapter(arrayAdapter1);
+        ArrayAdapter arrayAdapter1 = new ArrayAdapter(this, R.layout.dropdown_item, arrayList1);
+        AutoCompleteTextView collection = findViewById(R.id.collectionPoint);
+        //arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        collection.setAdapter(arrayAdapter1);
 
-        CollectionPoint.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                collect = String.valueOf(CollectionPoint.getSelectedItem());
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         Button btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
+                if (dd.getText().toString().equals("Collection Point")) {
+                    delivery = "1";
+                }
+                if (dd.getText().toString().equals("Courier / Delivery")) {
+                    delivery = "2";
+                }
                 String _phonenumber = phonenumber.getText().toString();
                 String Amount = amount.getText().toString();
-
                 dialog.show();
 
                 if (phonenumber.getText().toString().equals("") && amount.getText().toString().equals("")) {
@@ -317,8 +270,8 @@ state: "25"*/
                         params.put("accountName", customername.getText().toString());
                         params.put("customerNumber", phonenumber.getText().toString());
                         params.put("amount", Amount.trim());
-                        params.put("collectionPoint", "Agege");
-                        params.put("deliveryAddressLine1", "333 FREMONT STREET");
+                        params.put("collectionPoint", collection.getText().toString());
+                        params.put("deliveryAddressLine1", deliveryaddress1.getText());
                         params.put("deliveryAddressLine2", "");
                         params.put("deliveryOption", delivery);
                         params.put("lga", "2");
