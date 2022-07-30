@@ -51,8 +51,10 @@
         <entry key="app/src/main/res/layout/activity_dealer_dashboard.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_e_pin.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_electricity.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_electricity_preview.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_funding_table.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_funding_wallet_history_report.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_moneytransfer.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_notavailable.xml" value="0.4036458333333333" />
@@ -62,6 +64,7 @@
         <entry key="app/src/main/res/layout/activity_registration.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/activity_super_dealer_dashboard.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_test_table.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/activity_vending_completion.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/airtime.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/xml/root_preferences.xml" value="0.13489583333333333" />

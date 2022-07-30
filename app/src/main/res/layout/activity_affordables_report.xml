@@ -28,7 +28,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="YYYY-MM-DD"
+                    android:hint="DD-MM-YYYY"
                     android:padding="@dimen/padding_10"
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimaryDark" />
@@ -40,7 +40,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="YYYY-MM-DD"
+                    android:hint="DD-MM-YYYY"
                     android:padding="@dimen/padding_10"
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimaryDark" />

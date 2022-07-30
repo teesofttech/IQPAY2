@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +39,7 @@ import com.iqitech.ng.R;
 import com.iqitech.ng.Utils.Constant;
 import com.iqitech.ng.Utils.PrefUtils;
 import com.iqitech.ng.app.AppController;
+import com.iqitech.ng.reports.FundingTableActivity;
 import com.iqitech.ng.sysadmin.ReprintActivity;
 
 import org.json.JSONArray;
@@ -45,6 +48,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -72,6 +76,8 @@ public class AffordablesReportActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefresh;
     DataTable dataTable;
     DataTableHeader header;
+    EditText fromDate, toDate;
+    private int mYear, mMonth, mDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,11 +112,48 @@ public class AffordablesReportActivity extends AppCompatActivity {
                 .themeColor(Color.WHITE)
                 .text("Please wait...")
                 .fadeColor(Color.DKGRAY).build();
-        EditText fromDate = findViewById(R.id.fromDate);
+        fromDate = findViewById(R.id.fromDate);
 
-        EditText toDate = findViewById(R.id.toDate);
+        toDate = findViewById(R.id.toDate);
+
+        fromDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                mYear = calendar.get(Calendar.YEAR);
+                mMonth = calendar.get(Calendar.MONTH);
+                mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+                //show dialog
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesReportActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        fromDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                    }
+                }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
 
 
+        toDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                mYear = calendar.get(Calendar.YEAR);
+                mMonth = calendar.get(Calendar.MONTH);
+                mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+                //show dialog
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesReportActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        toDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                    }
+                }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
         // define 200 fake rows for table
 
         Button btn_click_print = (Button) findViewById(R.id.btn_click_print);

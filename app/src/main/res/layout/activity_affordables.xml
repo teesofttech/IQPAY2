@@ -11,10 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/MarqueeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/time_of_day"
+            android:layout_marginTop="5dp"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="-1"
+            android:singleLine="true"
+            android:text="All full slots of Cow, Ram and Goat comes with all part of the animals. However half slots may not come with all parts of the animal." />
+
+
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            android:layout_below="@+id/MarqueeText"
             android:layout_marginTop="21dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/placeholder" />
@@ -85,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Customer Phonenumber">
+                android:hint="Customer Phone number">
 
                 <!--this is the actual edit text which takes the input-->
                 <com.google.android.material.textfield.TextInputEditText
@@ -233,24 +246,24 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filledTextField"
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/filledTextField"-->
 
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Delivery Date (Monday, 01 Aug, 2022)">
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:hint="Delivery Date (DD-MM-YYYY)">-->
 
-                <!--this is the actual edit text which takes the input-->
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/deliveryDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
+<!--                &lt;!&ndash;this is the actual edit text which takes the input&ndash;&gt;-->
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/deliveryDate"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:inputType="date" />-->
 
-            </com.google.android.material.textfield.TextInputLayout>
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <Button
                 android:id="@+id/btnContinue"

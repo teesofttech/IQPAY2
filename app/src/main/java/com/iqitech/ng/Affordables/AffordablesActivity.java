@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -43,6 +45,7 @@ import com.iqitech.ng.Utils.Constant;
 import com.iqitech.ng.Utils.PrefUtils;
 import com.iqitech.ng.agents.PreviewActivity;
 import com.iqitech.ng.app.AppController;
+import com.iqitech.ng.reports.CommTableReportActivity;
 import com.libizo.CustomEditText;
 
 import org.json.JSONArray;
@@ -51,6 +54,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +86,7 @@ public class AffordablesActivity extends AppCompatActivity {
     UserModel model;
     String collect = "";
     String delivery = "";
+    String amnt = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +132,9 @@ public class AffordablesActivity extends AppCompatActivity {
         materialSpinner = (Spinner) findViewById(R.id.material_spinner_1);
         //deliveryPoint = (Spinner) findViewById(R.id.deliveryPoint);
         //CollectionPoint = (Spinner) findViewById(R.id.collectionPoint);
+        TextView MarqueeText = findViewById(R.id.MarqueeText);
+        MarqueeText.setSelected(true);
+
         materialSpinnerType = (Spinner) findViewById(R.id.material_spinner_type);
         config_url = Constant.GET_CATEGORIES + "8/" + "vendors";
         Log.d("url", config_url);
@@ -136,6 +144,27 @@ public class AffordablesActivity extends AppCompatActivity {
         TextInputEditText phonenumber = findViewById(R.id.phonenumber);
         TextInputEditText customername = findViewById(R.id.customername);
         TextInputEditText amount = findViewById(R.id.amount);
+
+
+//        fromDate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                final Calendar calendar = Calendar.getInstance();
+//                mYear = calendar.get(Calendar.YEAR);
+//                mMonth = calendar.get(Calendar.MONTH);
+//                mDay = calendar.get(Calendar.DAY_OF_MONTH);
+//
+//                //show dialog
+//                DatePickerDialog datePickerDialog = new DatePickerDialog(CommTableReportActivity.this, new DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                        fromDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+//                    }
+//                }, mYear, mMonth, mDay);
+//                datePickerDialog.show();
+//            }
+//        });
+
 
         progressDialog = new ProgressDialog(AffordablesActivity.this);
         fetchRecipes(config_url);
@@ -193,7 +222,8 @@ public class AffordablesActivity extends AppCompatActivity {
 
                 if (user.getName().equals(item2)) {
                     //  ServiceType.add(vendor.getAmount());
-                    amount.setText(String.valueOf(user.getAmount()));
+                    amount.setText("N" + String.valueOf(user.getAmount()));
+                    amnt = String.valueOf(user.getAmount());
                     //Log.d("serviceVendor1", String.valueOf(vendor.getVendorName()));
                 }
 
@@ -219,7 +249,9 @@ public class AffordablesActivity extends AppCompatActivity {
                 item2 = materialSpinnerType.getSelectedItem().toString();
                 if (user.getName().equals(item2)) {
                     //  ServiceType.add(vendor.getAmount());
-                    amount.setText(String.valueOf(user.getAmount()));
+                    amount.setText("N" + String.valueOf(user.getAmount()));
+                    amnt = String.valueOf(user.getAmount());
+
                     //Log.d("serviceVendor1", String.valueOf(vendor.getVendorName()));
                 }
             }
@@ -269,7 +301,7 @@ serviceId: 171
 state: "25"*/
                         params.put("accountName", customername.getText().toString());
                         params.put("customerNumber", phonenumber.getText().toString());
-                        params.put("amount", Amount.trim());
+                        params.put("amount", amnt.trim());
                         params.put("collectionPoint", collection.getText().toString());
                         params.put("deliveryAddressLine1", deliveryaddress1.getText());
                         params.put("deliveryAddressLine2", "");
