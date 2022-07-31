@@ -258,7 +258,7 @@ public class AffordablesReportActivity extends AppCompatActivity {
                                         .value(logs.getVendingCode())
                                         .value(logs.getService())
                                         .value(logs.getWalletBalance())
-                                        .value(logs.getAmount())
+                                        .value("N" + logs.getAmount())
                                         .value(logs.getStatus())
                                         .build();
 
