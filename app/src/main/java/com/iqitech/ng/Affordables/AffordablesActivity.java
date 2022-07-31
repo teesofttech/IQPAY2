@@ -35,6 +35,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.iqitech.ng.Adapter.ServiceVendorAdapter;
 import com.iqitech.ng.Adapter.SpinAdapter;
 import com.iqitech.ng.Models.LgaModel;
@@ -130,6 +131,7 @@ public class AffordablesActivity extends AppCompatActivity {
 
         TextInputEditText amountText = findViewById(R.id.amount);
         TextInputEditText deliveryaddress1 = findViewById(R.id.deliveryaddress1);
+        TextInputEditText deliveryaddress2 = findViewById(R.id.deliveryaddress2);
         alertDialogManager = new AlertDialogManager();
         image = findViewById(R.id.image);
         ACProgressFlower dialog = new ACProgressFlower.Builder(AffordablesActivity.this)
@@ -271,6 +273,7 @@ public class AffordablesActivity extends AppCompatActivity {
         //arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dd.setAdapter(arrayAdapter);
 
+
         materialSpinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -294,10 +297,26 @@ public class AffordablesActivity extends AppCompatActivity {
             }
         });
 
+        TextInputLayout collectionPointText = findViewById(R.id.collectionPointText);
         ArrayAdapter arrayAdapter1 = new ArrayAdapter(this, R.layout.dropdown_item, arrayList1);
         AutoCompleteTextView collection = findViewById(R.id.collectionPoint);
         //arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         collection.setAdapter(arrayAdapter1);
+
+        dd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("IfsffD", String.valueOf(id));
+                if (dd.getText().toString().equals("Collection Point")) {
+                    delivery = "1";
+                }
+                if (dd.getText().toString().equals("Courier / Delivery")) {
+                    delivery = "2";
+                    collectionPointText.setVisibility(View.GONE);
+                }
+            }
+        });
+
 
         Button btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setOnClickListener(new View.OnClickListener() {
@@ -306,12 +325,15 @@ public class AffordablesActivity extends AppCompatActivity {
 
                 StateModel StateModel = (StateModel) material_spinner_state.getSelectedItem();
                 LgaModel LgaModel = (LgaModel) material_spinner_lga.getSelectedItem();
-                Log.d("sss", String.valueOf(StateModel.getId()));
+                //Log.d("sss", String.valueOf(StateModel.getId()));
+
                 if (dd.getText().toString().equals("Collection Point")) {
                     delivery = "1";
+
                 }
                 if (dd.getText().toString().equals("Courier / Delivery")) {
                     delivery = "2";
+                    collection.setVisibility(View.GONE);
                 }
                 String _phonenumber = phonenumber.getText().toString();
                 String Amount = amount.getText().toString();
@@ -328,7 +350,7 @@ public class AffordablesActivity extends AppCompatActivity {
                         params.put("amount", amnt.trim());
                         params.put("collectionPoint", collection.getText().toString());
                         params.put("deliveryAddressLine1", deliveryaddress1.getText());
-                        params.put("deliveryAddressLine2", "");
+                        params.put("deliveryAddressLine2", deliveryaddress2.getText());
                         params.put("deliveryOption", delivery);
                         params.put("lga", String.valueOf(LgaModel.getId()));
                         params.put("numberOfPins", "1");
