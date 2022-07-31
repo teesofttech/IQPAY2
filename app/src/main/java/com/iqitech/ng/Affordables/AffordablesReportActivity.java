@@ -121,14 +121,14 @@ public class AffordablesReportActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
                 mYear = calendar.get(Calendar.YEAR);
-                mMonth = calendar.get(Calendar.MONTH);
+                mMonth = calendar.get(Calendar.MONTH) + 1;
                 mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
                 //show dialog
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesReportActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        fromDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                        fromDate.setText(dayOfMonth + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -141,14 +141,14 @@ public class AffordablesReportActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
                 mYear = calendar.get(Calendar.YEAR);
-                mMonth = calendar.get(Calendar.MONTH);
+                mMonth = calendar.get(Calendar.MONTH) + 1;
                 mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
                 //show dialog
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesReportActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        toDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
+                        toDate.setText(dayOfMonth + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();

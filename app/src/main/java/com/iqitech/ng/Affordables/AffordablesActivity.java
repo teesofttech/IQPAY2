@@ -32,10 +32,14 @@ import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.textfield.TextInputEditText;
 import com.iqitech.ng.Adapter.ServiceVendorAdapter;
+import com.iqitech.ng.Adapter.SpinAdapter;
+import com.iqitech.ng.Models.LgaModel;
 import com.iqitech.ng.Models.ServiceVendor;
+import com.iqitech.ng.Models.StateModel;
 import com.iqitech.ng.Models.UserModel;
 import com.iqitech.ng.Models.VendorModel;
 import com.iqitech.ng.Models.vendModel;
@@ -45,6 +49,7 @@ import com.iqitech.ng.Utils.Constant;
 import com.iqitech.ng.Utils.PrefUtils;
 import com.iqitech.ng.agents.PreviewActivity;
 import com.iqitech.ng.app.AppController;
+import com.iqitech.ng.electricityutils.ElectricityActivity;
 import com.iqitech.ng.reports.CommTableReportActivity;
 import com.libizo.CustomEditText;
 
@@ -66,6 +71,9 @@ public class AffordablesActivity extends AppCompatActivity {
     private static final String TAG = AffordablesActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     private List<ServiceVendor> cartList;
+    private List<StateModel> stateModelList;
+    private List<LgaModel> lgaModelList;
+    private List<LgaModel> lgaModelList2;
     private ServiceVendorAdapter mAdapter;
     private List<VendorModel> vendorModelList;
     //String URL;
@@ -75,18 +83,20 @@ public class AffordablesActivity extends AppCompatActivity {
     //AwesomeSpinner my_spinner,my_spinner2;
     String item1, item2;
     String VendId;
-
+    StateModel user;
     ArrayList<String> vendorname;
     ArrayList<vendModel> ServiceType;
     // ArrayList<String> vendorname;
     //ArrayList<String> ServiceType;
     AlertDialogManager alertDialogManager;
     ImageView image;
-    Spinner materialSpinner, materialSpinnerType, deliveryPoint, CollectionPoint;
+    Spinner materialSpinner, materialSpinnerType, material_spinner_state, material_spinner_lga, deliveryPoint, CollectionPoint;
     UserModel model;
     String collect = "";
     String delivery = "";
     String amnt = "";
+    private int mYear, mMonth, mDay;
+    TextInputEditText deliveryDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,50 +146,60 @@ public class AffordablesActivity extends AppCompatActivity {
         MarqueeText.setSelected(true);
 
         materialSpinnerType = (Spinner) findViewById(R.id.material_spinner_type);
+        material_spinner_state = (Spinner) findViewById(R.id.material_spinner_state);
+        material_spinner_lga = (Spinner) findViewById(R.id.material_spinner_lga);
         config_url = Constant.GET_CATEGORIES + "8/" + "vendors";
-        Log.d("url", config_url);
+        // Log.d("url", config_url);
         cartList = new ArrayList<>();
+        stateModelList = new ArrayList<>();
+        lgaModelList = new ArrayList<>();
+        lgaModelList2 = new ArrayList<>();
         vendorname = new ArrayList<>();
         ServiceType = new ArrayList<>();
+
         TextInputEditText phonenumber = findViewById(R.id.phonenumber);
         TextInputEditText customername = findViewById(R.id.customername);
         TextInputEditText amount = findViewById(R.id.amount);
+        deliveryDate = findViewById(R.id.deliveryDate);
 
-
-//        fromDate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                final Calendar calendar = Calendar.getInstance();
-//                mYear = calendar.get(Calendar.YEAR);
-//                mMonth = calendar.get(Calendar.MONTH);
-//                mDay = calendar.get(Calendar.DAY_OF_MONTH);
-//
-//                //show dialog
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(CommTableReportActivity.this, new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                        fromDate.setText(dayOfMonth + "-" + (month + 1) + "-" + year);
-//                    }
-//                }, mYear, mMonth, mDay);
-//                datePickerDialog.show();
-//            }
-//        });
+        deliveryDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                mYear = calendar.get(Calendar.YEAR);
+                mMonth = calendar.get(Calendar.MONTH) + 1;
+                mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                // int month = calendar.get(Calendar.MONTH) + 1;
+                //show dialog
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        deliveryDate.setText(dayOfMonth + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
+                    }
+                }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
 
 
         progressDialog = new ProgressDialog(AffordablesActivity.this);
         fetchRecipes(config_url);
 
+        fetchState("https://iqpay.com.ng/state.json");
+
         materialSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 item1 = materialSpinner.getSelectedItem().toString();
+                // ServiceVendor ser = (ServiceVendor) materialSpinner.getSelectedItem();
                 ServiceType.clear();
-                Log.d("serviceVendor", String.valueOf(cartList.size()));
-                Log.d("item", item1);
+                // Log.d("serviceVendor", String.valueOf(cartList.size()));
+                //Log.d("item", item1);
                 for (ServiceVendor vendor : cartList) {
                     if (vendor.getVendorName().equals(item1)) {
                         vendModel vend = new vendModel(String.valueOf(vendor.getId()), String.valueOf(vendor.getName()), String.valueOf(vendor.getAmount()));
                         ServiceType.add(vend);
+                        //deliveryDate.setText(vendor.getLastOrderDate());
                     }
                 }
                 ArrayAdapter<vendModel> adapter = new ArrayAdapter<vendModel>(AffordablesActivity.this,
@@ -197,7 +217,41 @@ public class AffordablesActivity extends AppCompatActivity {
                 }
                 if (item1.equals("Cow")) {
                     image.setImageResource(R.mipmap.coww);
+
                 }
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        material_spinner_state.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                user = (StateModel) material_spinner_state.getSelectedItem();
+
+                lgaModelList2.clear();
+                for (LgaModel vendor : lgaModelList) {
+
+                    if (vendor.getStateName().equals(user.getName())) {
+                        Log.d("lganame1", user.getName());
+                        Log.d("lganame2", vendor.getName());
+                        LgaModel vend = new LgaModel(vendor.getId(), String.valueOf(vendor.getName()));
+                        lgaModelList2.add(vend);
+                    }
+                }
+                ArrayAdapter<LgaModel> adapter = new ArrayAdapter<LgaModel>(AffordablesActivity.this,
+                        android.R.layout.simple_spinner_item, lgaModelList2);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                material_spinner_lga.setAdapter(adapter);
+                material_spinner_lga.setPrompt("Select one!");
+
+
             }
 
             @Override
@@ -214,15 +268,11 @@ public class AffordablesActivity extends AppCompatActivity {
                 // item2 = user.getId(); //materialSpinnerType.getSelectedItem().toString();
                 VendId = user.getId();
                 item2 = materialSpinnerType.getSelectedItem().toString();
-                Log.d("category", String.valueOf(user.getName()));
-                Log.d("category1", String.valueOf(user.getId()));
-                Log.d("category2", String.valueOf(user.getAmount()));
-
-                Log.d("category3", String.valueOf(item2));
 
                 if (user.getName().equals(item2)) {
                     //  ServiceType.add(vendor.getAmount());
                     amount.setText("N" + String.valueOf(user.getAmount()));
+
                     amnt = String.valueOf(user.getAmount());
                     //Log.d("serviceVendor1", String.valueOf(vendor.getVendorName()));
                 }
@@ -272,6 +322,9 @@ public class AffordablesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                StateModel StateModel = (StateModel) material_spinner_state.getSelectedItem();
+                LgaModel LgaModel = (LgaModel) material_spinner_lga.getSelectedItem();
+                Log.d("sss", String.valueOf(StateModel.getId()));
                 if (dd.getText().toString().equals("Collection Point")) {
                     delivery = "1";
                 }
@@ -288,17 +341,6 @@ public class AffordablesActivity extends AppCompatActivity {
                     JSONObject params = new JSONObject();
 
                     try {
-                        /*accountName: "tes"
-amount: "900.00"
-collectionPoint: "Agege"
-customerNumber: "123569"
-deliveryAddressLine1: "333 FREMONT STREET"
-deliveryAddressLine2: null
-deliveryOption: "1"
-lga: "2"
-numberOfPins: 1
-serviceId: 171
-state: "25"*/
                         params.put("accountName", customername.getText().toString());
                         params.put("customerNumber", phonenumber.getText().toString());
                         params.put("amount", amnt.trim());
@@ -306,10 +348,11 @@ state: "25"*/
                         params.put("deliveryAddressLine1", deliveryaddress1.getText());
                         params.put("deliveryAddressLine2", "");
                         params.put("deliveryOption", delivery);
-                        params.put("lga", "2");
+                        params.put("lga", String.valueOf(LgaModel.getId()));
                         params.put("numberOfPins", "1");
                         params.put("serviceId", VendId);
-                        params.put("state", "25");
+                        params.put("state", String.valueOf(StateModel.getId()));
+                        params.put("deliveryDate", String.valueOf(deliveryDate.getText()));
                         Log.d("yy", params.toString()); // params.put("updateVateepProfile", "true");
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -322,11 +365,11 @@ state: "25"*/
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
-                                    Log.d("RESPONSE", response.toString());
+                                    //Log.d("RESPONSE", response.toString());
                                     dialog.dismiss();
                                     try {
                                         String statusCode = response.getString("statusCode");
-                                        Log.d("stat", statusCode);
+                                        //  Log.d("stat", statusCode);
                                         if (statusCode.equals("200")) {
                                             //alertDialogManager.showAlertDialog(RechargeVendorsActivity.this, "Success", response.getString("message"), true);
 
@@ -371,7 +414,7 @@ state: "25"*/
                             HashMap<String, String> headers = new HashMap<String, String>();
                             headers.put("Content-Type", "application/json; charset=utf-8");
                             headers.put("Authorization", "Bearer " + model.getToken());
-                            Log.d("TAG", "getHeaders: " + headers.toString());
+                            //Log.d("TAG", "getHeaders: " + headers.toString());
                             return headers;
                         }
                     };
@@ -390,6 +433,8 @@ state: "25"*/
         progressDialog.show();
         cartList = new ArrayList<>();
         cartList.clear();
+
+
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 URL, null, new Response.Listener<JSONObject>() {
             @Override
@@ -398,6 +443,7 @@ state: "25"*/
                 try {
                     // Parsing json object response
                     // response will be a json object
+                    Log.d("responsenew", response.toString());
                     String name = response.getString("message");
                     String email = response.getString("statusCode");
                     JSONArray content = response.getJSONArray("content");
@@ -409,7 +455,7 @@ state: "25"*/
                         VendorModel vendor = new VendorModel();
                         vendor.setId(vend.getInt("id"));
                         vendor.setName(vend.getString("name"));
-                        Log.d("vendrname", vend.getString("name"));
+                        // Log.d("vendrname", vend.getString("name"));
                         vendorname.add(vend.getString("name"));
                         materialSpinner.setAdapter(new ArrayAdapter<String>(AffordablesActivity.this, android.R.layout.simple_spinner_dropdown_item, vendorname));
 
@@ -427,6 +473,7 @@ state: "25"*/
                                 mydic.setName(obj.getString("name"));
                                 mydic.setAmount(obj.getDouble("amount"));
                                 mydic.setDescription(obj.getString("description"));
+                                mydic.setLastOrderDate(obj.getString("lastOrderDate"));
                                 cartList.add(mydic);
 
                             } catch (JSONException e) {
@@ -434,7 +481,6 @@ state: "25"*/
                             }
                         }
                         //  mAdapter.notifyDataSetChanged();
-
                     }
                     // stop animating Shimmer and hide the layout
 
@@ -461,7 +507,7 @@ state: "25"*/
                                 HttpHeaderParser.parseCharset(response.headers, "utf-8"));
                         // Now you can use any deserializer to make sense of data
                         JSONObject obj = new JSONObject(res);
-                        Log.d("error", obj.getString("message"));
+                        //  Log.d("error", obj.getString("message"));
                         Toast.makeText(AffordablesActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
 
                     } catch (UnsupportedEncodingException e1) {
@@ -484,7 +530,7 @@ state: "25"*/
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Content-Type", "application/json; charset=utf-8");
                 headers.put("Authorization", "Bearer " + model.getToken());
-                Log.d("TAG", "getHeaders: " + headers.toString());
+                //Log.d("TAG", "getHeaders: " + headers.toString());
                 return headers;
             }
         };
@@ -492,6 +538,171 @@ state: "25"*/
         DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         jsonObjReq.setRetryPolicy(retryPolicy);
         AppController.getInstance().addToRequestQueue(jsonObjReq);
+
+    }
+
+    private void fetchState(String URL) {
+        Log.d("url", URL);
+        progressDialog.setMessage("Fetching State");
+        progressDialog.show();
+        stateModelList = new ArrayList<>();
+        stateModelList.clear();
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            Log.d("testmet", response.toString());
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject station1 = response.getJSONObject(i);
+                                Log.d("station1", String.valueOf(station1.getJSONObject("state")));
+
+                                JSONObject stationName = station1.getJSONObject("state");
+                                Log.d("stationName", stationName.getString("name"));
+
+                                StateModel vendor = new StateModel(stationName.getInt("id"), stationName.getString("name"));
+
+                                stateModelList.add(vendor);
+                                material_spinner_state.setAdapter(new SpinAdapter(AffordablesActivity.this, android.R.layout.simple_spinner_dropdown_item, stateModelList));
+
+
+                                JSONArray services = stationName.getJSONArray("locals");
+
+                                for (int k = 0; k < services.length(); k++) {
+
+                                    try {
+                                        final JSONObject obj = (JSONObject) services
+                                                .get(k);
+                                        //Log.d("lga", obj.getString("name"));
+                                        LgaModel mydic = new LgaModel(obj.getInt("id"), obj.getString("name"), stationName.getString("name"));
+                                        //mydic.setId(obj.getInt("id"));
+                                        //mydic.setName(obj.getString("name"));
+
+                                        lgaModelList.add(mydic);
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                // mAdapter.notifyDataSetChanged();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("volley", "error");
+                    }
+                });
+        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        jsonArrayRequest.setRetryPolicy(retryPolicy);
+        AppController.getInstance().addToRequestQueue(jsonArrayRequest);
+
+//        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+//                URL, null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                progressDialog.dismiss();
+//                try {
+//                    // Parsing json object response
+//                    // response will be a json object
+//
+//                    Log.d("Test State", String.valueOf(response));
+//                    JSONArray content = response.getJSONArray("state");
+//
+//                    for (int i = 0; i < content.length(); i++) {
+//
+//                        JSONObject vend = (JSONObject) content
+//                                .get(i);
+//                        Log.d("Test State", String.valueOf(vend.getInt("id")));
+//                        //VendorModel vendor = new VendorModel();
+//                        // vendor.setId(vend.getInt("id"));
+//                        //vendor.setName(vend.getString("name"));
+//                        //Log.d("vendrname", vend.getString("name"));
+//                        //vendorname.add(vend.getString("name"));
+//                        //materialSpinner.setAdapter(new ArrayAdapter<String>(AffordablesActivity.this, android.R.layout.simple_spinner_dropdown_item, vendorname));
+//
+////                        JSONArray services = vend.getJSONArray("serivces");
+////
+////                        for (int k = 0; k < services.length(); k++) {
+////
+////                            try {
+////                                final JSONObject obj = (JSONObject) services
+////                                        .get(k);
+////
+////                                ServiceVendor mydic = new ServiceVendor();
+////                                mydic.setId(obj.getInt("id"));
+////                                mydic.setVendorName(obj.getString("vendorName"));
+////                                mydic.setName(obj.getString("name"));
+////                                mydic.setAmount(obj.getDouble("amount"));
+////                                mydic.setDescription(obj.getString("description"));
+////                                cartList.add(mydic);
+////
+////                            } catch (JSONException e) {
+////                                e.printStackTrace();
+////                            }
+////                        }
+//                        //  mAdapter.notifyDataSetChanged();
+//
+//                    }
+//                    // stop animating Shimmer and hide the layout
+//
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    Toast.makeText(getApplicationContext(),
+//                            "Error: " + e.getMessage(),
+//                            Toast.LENGTH_LONG).show();
+//                }
+//                progressDialog.dismiss();
+//            }
+//        }, new Response.ErrorListener() {
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(AffordablesActivity.this, "Error occurred while vending", Toast.LENGTH_LONG).show();
+//                VolleyLog.d("TAGGG", "Error: " + error.getMessage());
+//                // As of f605da3 the following should work
+//                progressDialog.dismiss();
+//                NetworkResponse response = error.networkResponse;
+//                if (error instanceof ServerError && response != null) {
+//                    try {
+//                        String res = new String(response.data,
+//                                HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+//                        // Now you can use any deserializer to make sense of data
+//                        JSONObject obj = new JSONObject(res);
+//                        Log.d("error", obj.getString("message"));
+//                        Toast.makeText(AffordablesActivity.this, obj.getString("message"), Toast.LENGTH_LONG).show();
+//
+//                    } catch (UnsupportedEncodingException e1) {
+//                        // Couldn't properly decode data to string
+//                        e1.printStackTrace();
+//                    } catch (JSONException e2) {
+//                        // returned data is not JSONObject?
+//                        e2.printStackTrace();
+//                    }
+//                }
+//
+//            }
+//        }) {
+//
+//            /**
+//             * Passing some request headers
+//             */
+//            @Override
+//            public Map<String, String> getHeaders() throws AuthFailureError {
+//                HashMap<String, String> headers = new HashMap<String, String>();
+//                // headers.put("Content-Type", "application/json; charset=utf-8");
+//                // headers.put("Authorization", "Bearer " + model.getToken());
+//                //  Log.d("TAG", "getHeaders: " + headers.toString());
+//                return headers;
+//            }
+//        };
+
 
     }
 }
