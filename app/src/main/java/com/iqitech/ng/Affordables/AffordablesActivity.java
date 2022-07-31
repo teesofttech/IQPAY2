@@ -162,26 +162,6 @@ public class AffordablesActivity extends AppCompatActivity {
         TextInputEditText amount = findViewById(R.id.amount);
         deliveryDate = findViewById(R.id.deliveryDate);
 
-        deliveryDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar calendar = Calendar.getInstance();
-                mYear = calendar.get(Calendar.YEAR);
-                mMonth = calendar.get(Calendar.MONTH) + 1;
-                mDay = calendar.get(Calendar.DAY_OF_MONTH);
-                // int month = calendar.get(Calendar.MONTH) + 1;
-                //show dialog
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        deliveryDate.setText(dayOfMonth + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
-                    }
-                }, mYear, mMonth, mDay);
-                datePickerDialog.show();
-            }
-        });
-
-
         progressDialog = new ProgressDialog(AffordablesActivity.this);
         fetchRecipes(config_url);
 
@@ -197,16 +177,18 @@ public class AffordablesActivity extends AppCompatActivity {
                 //Log.d("item", item1);
                 for (ServiceVendor vendor : cartList) {
                     if (vendor.getVendorName().equals(item1)) {
-                        vendModel vend = new vendModel(String.valueOf(vendor.getId()), String.valueOf(vendor.getName()), String.valueOf(vendor.getAmount()));
+                        vendModel vend = new vendModel(String.valueOf(vendor.getId()), String.valueOf(vendor.getName()), String.valueOf(vendor.getAmount()), String.valueOf(vendor.getLastOrderDate()));
                         ServiceType.add(vend);
-                        //deliveryDate.setText(vendor.getLastOrderDate());
+//                        if (vendor.getLastOrderDate().equals(null)) {
+//                            deliveryDate.setText(vendor.getLastOrderDate());
+//                            Log.d("date", vendor.getLastOrderDate());
+//                        }
                     }
                 }
                 ArrayAdapter<vendModel> adapter = new ArrayAdapter<vendModel>(AffordablesActivity.this,
                         android.R.layout.simple_spinner_item, ServiceType);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 materialSpinnerType.setAdapter(adapter);
-
                 materialSpinnerType.setPrompt("Select one!");
 
                 if (item1.equals("Ram")) {
@@ -261,29 +243,28 @@ public class AffordablesActivity extends AppCompatActivity {
         });
 
 
-        materialSpinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                vendModel user = (vendModel) materialSpinnerType.getSelectedItem();
-                // item2 = user.getId(); //materialSpinnerType.getSelectedItem().toString();
-                VendId = user.getId();
-                item2 = materialSpinnerType.getSelectedItem().toString();
-
-                if (user.getName().equals(item2)) {
-                    //  ServiceType.add(vendor.getAmount());
-                    amount.setText("N" + String.valueOf(user.getAmount()));
-
-                    amnt = String.valueOf(user.getAmount());
-                    //Log.d("serviceVendor1", String.valueOf(vendor.getVendorName()));
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        materialSpinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                vendModel user = (vendModel) materialSpinnerType.getSelectedItem();
+//                // item2 = user.getId(); //materialSpinnerType.getSelectedItem().toString();
+//                VendId = user.getId();
+//                item2 = materialSpinnerType.getSelectedItem().toString();
+//
+//                if (user.getName().equals(item2)) {
+//                    //  ServiceType.add(vendor.getAmount());
+//                    amount.setText("N" + String.valueOf(user.getAmount()));
+//                    amnt = String.valueOf(user.getAmount());
+//                    //Log.d("serviceVendor1", String.valueOf(vendor.getVendorName()));
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.dropdown_item, arrayList);
         AutoCompleteTextView dd = findViewById(R.id.autoCompleteTextView);
@@ -301,6 +282,7 @@ public class AffordablesActivity extends AppCompatActivity {
                     //  ServiceType.add(vendor.getAmount());
                     amount.setText("N" + String.valueOf(user.getAmount()));
                     amnt = String.valueOf(user.getAmount());
+                    deliveryDate.setText(String.valueOf(user.getLastOrderDate()));
 
                     //Log.d("serviceVendor1", String.valueOf(vendor.getVendorName()));
                 }

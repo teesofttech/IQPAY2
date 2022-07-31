@@ -128,7 +128,7 @@ public class AffordablesReportActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesReportActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        fromDate.setText(dayOfMonth + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
+                        fromDate.setText((dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -148,7 +148,7 @@ public class AffordablesReportActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesReportActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        toDate.setText(dayOfMonth + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
+                        toDate.setText((dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth))  + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
