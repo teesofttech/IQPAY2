@@ -47,8 +47,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -121,14 +123,15 @@ public class AffordablesReportActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
                 mYear = calendar.get(Calendar.YEAR);
-                mMonth = calendar.get(Calendar.MONTH) + 1;
+                mMonth = calendar.get(Calendar.MONTH);
                 mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
                 //show dialog
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesReportActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        fromDate.setText((dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
+                        // fromDate.setText((dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
+                        fromDate.setText(formatDate(dayOfMonth, mMonth, year));
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -141,14 +144,16 @@ public class AffordablesReportActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Calendar calendar = Calendar.getInstance();
                 mYear = calendar.get(Calendar.YEAR);
-                mMonth = calendar.get(Calendar.MONTH) + 1;
+                mMonth = calendar.get(Calendar.MONTH);
                 mDay = calendar.get(Calendar.DAY_OF_MONTH);
 
                 //show dialog
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesReportActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        toDate.setText((dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth))  + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
+                        //toDate.setText((dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
+
+                        toDate.setText(formatDate(dayOfMonth, mMonth, year));
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -191,6 +196,19 @@ public class AffordablesReportActivity extends AppCompatActivity {
 
     }
 
+    private static String formatDate(int day, int month, int year) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.YEAR, year);
+        Date myDate = cal.getTime();
+
+        String date = new SimpleDateFormat("dd-MMM-yyyy").format(myDate);
+
+
+        return date;
+    }
+
     public ArrayList<VendingLogs> getRecords(EditText fromDate, EditText toDate) {
         String newUrl = "";
         if (fromDate.getText().toString().equals("") && toDate.getText().toString().equals("")) {
@@ -198,7 +216,7 @@ public class AffordablesReportActivity extends AppCompatActivity {
         } else {
             newUrl = Constant.AFFORDABLESREPORT + "?startDate=" + fromDate.getText().toString() + "&endDate=" + toDate.getText().toString();
         }
-        Log.d("URL", newUrl);
+        Log.d("URLL", newUrl);
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 newUrl, null, new Response.Listener<JSONObject>() {
             @Override

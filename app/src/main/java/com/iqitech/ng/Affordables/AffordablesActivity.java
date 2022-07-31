@@ -564,10 +564,10 @@ public class AffordablesActivity extends AppCompatActivity {
 
                                 JSONObject stationName = station1.getJSONObject("state");
                                 Log.d("stationName", stationName.getString("name"));
-
-                                StateModel vendor = new StateModel(stationName.getInt("id"), stationName.getString("name"));
-
-                                stateModelList.add(vendor);
+                                if (stationName.getString("name").equals("Lagos State")) {
+                                    StateModel vendor = new StateModel(stationName.getInt("id"), stationName.getString("name"));
+                                    stateModelList.add(vendor);
+                                }
                                 material_spinner_state.setAdapter(new SpinAdapter(AffordablesActivity.this, android.R.layout.simple_spinner_dropdown_item, stateModelList));
 
 

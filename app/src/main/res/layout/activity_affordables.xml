@@ -257,6 +257,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:inputType="none"
+                    android:editable="false"
                     android:text="Select Preferred Delivery Option" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -293,6 +294,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:inputType="none"
+                    android:editable="false"
                     android:text="Select Collection Point" />
 
             </com.google.android.material.textfield.TextInputLayout>
