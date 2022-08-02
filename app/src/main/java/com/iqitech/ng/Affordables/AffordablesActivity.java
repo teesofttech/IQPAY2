@@ -380,7 +380,7 @@ public class AffordablesActivity extends AppCompatActivity {
                                             Toast.makeText(AffordablesActivity.this, response.getString("message"), Toast.LENGTH_LONG).show();
 
                                             JSONObject content = response.getJSONObject("content");
-                                            Intent ii = new Intent(AffordablesActivity.this, PreviewActivity.class);
+                                            Intent ii = new Intent(AffordablesActivity.this, AffordablesPreviewActivity.class);
                                             ii.putExtra("vendingCode", content.getString("vendingCode"));
                                             ii.putExtra("status", content.getString("status"));
                                             ii.putExtra("service", content.getString("service"));
