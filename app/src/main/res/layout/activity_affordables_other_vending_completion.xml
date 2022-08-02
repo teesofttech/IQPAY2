@@ -201,7 +201,7 @@
 
 
                     <TextView
-                        android:id="@+id/subtotal"
+                        android:id="@+id/subtotal2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -321,7 +321,7 @@
 
 
                     <TextView
-                        android:id="@+id/coupondiscount"
+                        android:id="@+id/coupondiscount2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -358,7 +358,7 @@
 
 
                     <TextView
-                        android:id="@+id/coupondiscount"
+                        android:id="@+id/coupondiscount1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -397,7 +397,7 @@
 
 
                     <TextView
-                        android:id="@+id/delivery"
+                        android:id="@+id/delivery5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -437,7 +437,7 @@
 
 
                     <TextView
-                        android:id="@+id/delivery"
+                        android:id="@+id/delivery2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -477,7 +477,7 @@
 
 
                     <TextView
-                        android:id="@+id/delivery"
+                        android:id="@+id/delivery4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -555,7 +555,7 @@
 
 
                     <TextView
-                        android:id="@+id/delivery"
+                        android:id="@+id/delivery6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

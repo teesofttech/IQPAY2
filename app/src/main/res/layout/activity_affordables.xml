@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -71,7 +69,7 @@
                 android:background="@color/colorPrimaryDark" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filledTextField"
+                android:id="@+id/filledTextField7"
 
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
@@ -91,7 +89,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filledTextField"
+                android:id="@+id/filledTextField1"
 
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
@@ -111,7 +109,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filledTextField"
+                android:id="@+id/filledTextField2"
 
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
@@ -131,7 +129,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filledTextField"
+                android:id="@+id/filledTextField3"
 
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
@@ -150,7 +148,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filledTextField"
+                android:id="@+id/filledTextField4"
 
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
@@ -301,7 +299,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/filledTextField"
+                android:id="@+id/filledTextField5"
 
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 
