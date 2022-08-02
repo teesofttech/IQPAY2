@@ -80,6 +80,7 @@ public class AffordablesReportActivity extends AppCompatActivity {
     DataTableHeader header;
     EditText fromDate, toDate;
     private int mYear, mMonth, mDay;
+    String monthName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,8 +131,45 @@ public class AffordablesReportActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesReportActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        // fromDate.setText((dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
-                        fromDate.setText(formatDate(dayOfMonth, mMonth, year));
+                        month = month + 1;
+                        if (month == 1) {
+                            monthName = "JAN";
+                        }
+                        if (month == 2) {
+                            monthName = "FEB";
+                        }
+                        if (month == 3) {
+                            monthName = "MAR";
+                        }
+                        if (month == 4) {
+                            monthName = "APR";
+                        }
+                        if (month == 5) {
+                            monthName = "MAY";
+                        }
+                        if (month == 6) {
+                            monthName = "JUN";
+                        }
+                        if (month == 7) {
+                            monthName = "JUL";
+                        }
+                        if (month == 8) {
+                            monthName = "AUG";
+                        }
+                        if (month == 9) {
+                            monthName = "SEP";
+                        }
+                        if (month == 10) {
+                            monthName = "OCT";
+                        }
+                        if (month == 11) {
+                            monthName = "NOV";
+                        }
+                        if (month == 12) {
+                            monthName = "DEC";
+                        }
+                        fromDate.setText((dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + "-" + monthName + "-" + year);
+                        // fromDate.setText(formatDate(dayOfMonth, mMonth, year));
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -151,9 +189,46 @@ public class AffordablesReportActivity extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(AffordablesReportActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        //toDate.setText((dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + "-" + (mMonth < 10 ? ("0" + mMonth) : (mMonth)) + "-" + year);
+                        month = month + 1;
+                        if (month == 1) {
+                            monthName = "JAN";
+                        }
+                        if (month == 2) {
+                            monthName = "FEB";
+                        }
+                        if (month == 3) {
+                            monthName = "MAR";
+                        }
+                        if (month == 4) {
+                            monthName = "APR";
+                        }
+                        if (month == 5) {
+                            monthName = "MAY";
+                        }
+                        if (month == 6) {
+                            monthName = "JUN";
+                        }
+                        if (month == 7) {
+                            monthName = "JUL";
+                        }
+                        if (month == 8) {
+                            monthName = "AUG";
+                        }
+                        if (month == 9) {
+                            monthName = "SEP";
+                        }
+                        if (month == 10) {
+                            monthName = "OCT";
+                        }
+                        if (month == 11) {
+                            monthName = "NOV";
+                        }
+                        if (month == 12) {
+                            monthName = "DEC";
+                        }
+                        toDate.setText((dayOfMonth < 10 ? ("0" + dayOfMonth) : (dayOfMonth)) + "-" + monthName + "-" + year);
 
-                        toDate.setText(formatDate(dayOfMonth, mMonth, year));
+                        //toDate.setText(formatDate(dayOfMonth, mMonth, year));
                     }
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
@@ -201,11 +276,11 @@ public class AffordablesReportActivity extends AppCompatActivity {
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH, day);
         cal.set(Calendar.YEAR, year);
+
         Date myDate = cal.getTime();
 
-        String date = new SimpleDateFormat("dd-MMM-yyyy").format(myDate);
-
-
+        String date = new SimpleDateFormat("dd-MMM-yyyy").format(cal.getInstance().getTime());
+        Log.d("calculate", String.valueOf(date));
         return date;
     }
 
