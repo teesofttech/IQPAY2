@@ -59,10 +59,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
@@ -98,6 +101,7 @@ public class AffordablesActivity extends AppCompatActivity {
     String amnt = "";
     private int mYear, mMonth, mDay;
     TextInputEditText deliveryDate;
+    TextInputLayout filledTextField5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +136,7 @@ public class AffordablesActivity extends AppCompatActivity {
         TextInputEditText amountText = findViewById(R.id.amount);
         TextInputEditText deliveryaddress1 = findViewById(R.id.deliveryaddress1);
         TextInputEditText deliveryaddress2 = findViewById(R.id.deliveryaddress2);
+        filledTextField5 = findViewById(R.id.filledTextField5);
         alertDialogManager = new AlertDialogManager();
         image = findViewById(R.id.image);
         ACProgressFlower dialog = new ACProgressFlower.Builder(AffordablesActivity.this)
@@ -285,8 +290,13 @@ public class AffordablesActivity extends AppCompatActivity {
                     //  ServiceType.add(vendor.getAmount());
                     amount.setText("N" + String.valueOf(user.getAmount()));
                     amnt = String.valueOf(user.getAmount());
-                    deliveryDate.setText(String.valueOf(user.getLastOrderDate()));
-
+                    Log.d("order", user.getLastOrderDate());
+                    if (user.getLastOrderDate().equals("null")) {
+                        filledTextField5.setVisibility(View.GONE);
+                    } else {
+                        deliveryDate.setText(String.valueOf(user.getLastOrderDate()));
+                        filledTextField5.setVisibility(View.VISIBLE);
+                    }
                     //Log.d("serviceVendor1", String.valueOf(vendor.getVendorName()));
                 }
             }
@@ -335,6 +345,15 @@ public class AffordablesActivity extends AppCompatActivity {
                     delivery = "2";
                     collection.setVisibility(View.GONE);
                 }
+                if (deliveryDate.getText() == null) {
+                    Date c = Calendar.getInstance().getTime();
+                    System.out.println("Current time => " + c);
+
+                    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                    String formattedDate = df.format(c);
+                    Log.d("formmat", formattedDate);
+                    deliveryDate.setText(formattedDate);
+                }
                 String _phonenumber = phonenumber.getText().toString();
                 String Amount = amount.getText().toString();
                 dialog.show();
@@ -356,7 +375,11 @@ public class AffordablesActivity extends AppCompatActivity {
                         params.put("numberOfPins", "1");
                         params.put("serviceId", VendId);
                         params.put("state", String.valueOf(StateModel.getId()));
-                        params.put("deliveryDate", String.valueOf(deliveryDate.getText()));
+                        if (String.valueOf(deliveryDate.getText()).equals("null")) {
+
+                        } else {
+                            params.put("deliveryDate", String.valueOf(deliveryDate.getText()));
+                        }
                         Log.d("yy", params.toString()); // params.put("updateVateepProfile", "true");
                     } catch (JSONException e) {
                         e.printStackTrace();

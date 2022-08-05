@@ -46,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="Vending Summary"
+                        android:text="Vending Completed"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="30dp" />
 
@@ -85,6 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="left"
                         android:padding="16dp"
                         android:text="Vending Code:"
@@ -98,6 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="right"
                         android:padding="16dp"
                         android:text=""
@@ -124,6 +126,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="left"
                         android:padding="16dp"
                         android:text="Customer Ref:"
@@ -137,6 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="right"
                         android:padding="16dp"
                         android:text="0"
@@ -162,6 +166,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="left"
                         android:padding="16dp"
                         android:text="Service"
@@ -175,6 +180,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="right"
                         android:padding="16dp"
                         android:text=""
@@ -195,11 +201,12 @@
 
 
                     <TextView
-                        android:id="@+id/subtotal"
+                        android:id="@+id/subtotal2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="left"
                         android:padding="16dp"
                         android:text="Amount"
@@ -213,6 +220,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="right"
                         android:padding="16dp"
                         android:text=""
@@ -226,7 +234,85 @@
                     android:layout_height="1dp"
                     android:background="@color/colordevider" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+
+                    <TextView
+                        android:id="@+id/subtotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="left"
+                        android:padding="16dp"
+                        android:text="Delivery Fee"
+                        android:textColor="@color/textSub"
+                        android:textSize="@dimen/text" />
+
+
+                    <TextView
+                        android:id="@+id/deliveryfee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text=""
+                        android:textColor="@color/Tex"
+                        android:textSize="@dimen/text" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colordevider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/subtotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="left"
+                        android:padding="16dp"
+                        android:text="Total"
+                        android:textColor="@color/textSub"
+                        android:textSize="@dimen/text" />
+
+
+                    <TextView
+                        android:id="@+id/totalamount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text=""
+                        android:textColor="@color/Tex"
+                        android:textSize="@dimen/text" />
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colordevider" />
                 <!--******coupon discount********-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -235,11 +321,12 @@
 
 
                     <TextView
-                        android:id="@+id/coupondiscount"
+                        android:id="@+id/coupondiscount2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="left"
                         android:padding="16dp"
                         android:text="Vending Status"
@@ -252,6 +339,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="right"
                         android:padding="16dp"
                         android:text=""
@@ -263,6 +351,44 @@
                     android:layout_height="1dp"
                     android:background="@color/colordevider" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/coupondiscount1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="left"
+                        android:padding="16dp"
+                        android:text="Quantity"
+                        android:textSize="@dimen/text" />
+
+
+                    <TextView
+                        android:id="@+id/quantity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text=""
+                        android:textSize="@dimen/text" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colordevider" />
+
+
                 <!--******sub total********-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -271,11 +397,12 @@
 
 
                     <TextView
-                        android:id="@+id/delivery"
+                        android:id="@+id/delivery5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="left"
                         android:padding="16dp"
                         android:text="Customer Name"
@@ -289,6 +416,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="#0000"
+
                         android:gravity="right"
                         android:padding="16dp"
                         android:text="N/A"
@@ -296,8 +424,168 @@
                         android:textSize="@dimen/text" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colordevider" />
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/delivery2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="left"
+                        android:padding="16dp"
+                        android:text="Delivery Address"
+                        android:textColor="@color/textSub"
+                        android:textSize="@dimen/text" />
+
+
+                    <TextView
+                        android:id="@+id/deliveryaddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text="N/A"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/text" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colordevider" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/delivery4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="left"
+                        android:padding="16dp"
+                        android:text="Collection Point"
+                        android:textColor="@color/textSub"
+                        android:textSize="@dimen/text" />
+
+
+                    <TextView
+                        android:id="@+id/collectionPoint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text="N/A"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/text" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colordevider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/delivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="left"
+                        android:padding="16dp"
+                        android:text="Delivery Date"
+                        android:textColor="@color/textSub"
+                        android:textSize="@dimen/text" />
+
+
+                    <TextView
+                        android:id="@+id/deliveryDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text="N/A"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/text" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colordevider" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/delivery6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="left"
+                        android:padding="16dp"
+                        android:text="Preferred Delivery Option"
+                        android:textColor="@color/textSub"
+                        android:textSize="@dimen/text" />
+
+
+                    <TextView
+                        android:id="@+id/preferredDelivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="#0000"
+
+                        android:gravity="right"
+                        android:padding="16dp"
+                        android:text="N/A"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/text" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colordevider" />
 
             </LinearLayout>
 
@@ -311,14 +599,27 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
+                <!--                <Button-->
+                <!--                    android:id="@+id/btnComplete"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="50dp"-->
+                <!--                    android:layout_marginLeft="37dp"-->
+                <!--                    android:layout_marginRight="36dp"-->
+                <!--                    android:background="@drawable/shape"-->
+                <!--                    android:fontFamily="@font/futura"-->
+                <!--                    android:text="Print"-->
+                <!--                    android:textAllCaps="false"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="15sp" />-->
+
+
                 <Button
                     android:id="@+id/btnComplete"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="37dp"
-                    android:layout_marginRight="36dp"
+                    android:layout_marginTop="30dp"
                     android:background="@drawable/shape"
-                    android:text="Complete"
+                    android:text="Continue"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
